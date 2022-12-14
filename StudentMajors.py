@@ -14,3 +14,9 @@ def find_students_by_name(students, name):
 def get_all_majors(students):
     return [student[1] for student in students]
 
+def main():
+    print(find_students_by_name(students, 'in'))
+
+
+if __name__ == "__main__":
+    main()
