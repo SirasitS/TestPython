@@ -10,12 +10,24 @@ class Song:
         """
         :returns: (bool) True if the playlist is repeating, False if not.
         """
-        return None
+        playlist = {self}
+        song = self.next
+
+        while song:            
+            if song in playlist:
+                return True
+
+            playlist.add(song)
+            song = song.next
+
+        return False
             
 first = Song("Hello")
 second = Song("Eye of the tiger")
+third = Song("test")
     
 first.next_song(second)
-second.next_song(first)
+second.next_song(third)
+third.next_song(first)
 
 print(first.is_in_repeating_playlist())
