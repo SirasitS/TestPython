@@ -13,7 +13,7 @@ class LeagueTable:
         if rank > len(self.standings):
             return None
         
-        print("Current table scores =", self.standings)        
+        # print("Current table scores =", self.standings)        
         # Sort table by score
         table_list = sorted([(k,v['score'],v['games_played']) for k,v in self.standings.items()], key=lambda s:s[1], reverse=True)
         print("table_list = {0} and table_count = {1}".format(table_list, len(table_list)))
@@ -47,7 +47,7 @@ class LeagueTable:
 if __name__ == "__main__":
     table = LeagueTable(['Mike', 'Chris', 'Arnold'])
     table.record_result('Mike', 2)
-    table.record_result('Mike', 7)
+    table.record_result('Mike', 1)
     # table.record_result('Mike', 5)
     table.record_result('Arnold', 5)
     table.record_result('Chris', 5)
