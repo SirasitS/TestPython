@@ -10,37 +10,34 @@ class LeagueTable:
         self.standings[player]['score'] += score        
       
     def player_rank(self, rank):
-        scores = set()         # Create empty dict to collect the score
-        least_game = 0
+        if rank > len(self.standings):
+            return None
+        # print("length of self.standings =", len(self.standings))
+        print("Current table scores =", self.standings)
 
-        for key, counterObj in self.standings.items():                        
-            # print(counterObj['score'])
-            scores.add(counterObj['score'])
-            # print(key, counterObj)
-            # print(counterObj['score'])
-            # scores.add(list(counterObj.items())[1][1])
+        score_list = sorted({v['score'] for k,v in self.standings.items()}, reverse=True)
+        print("scores =", score_list)
+        print("score of rank {0} = {1}".format(rank, score_list[rank-1]))
 
+        min_play =  min({v2['games_played'] for k2,v2 in self.standings.items()})
+        print("min game play =", min_play)
 
-        # sortedHigestScores = sorted(scores, reverse=True)
-        # print(sortedHigestScores)
-        # print("rank {0} score = {1}".format(rank, sortedHigestScores[rank - 1]))
-        print(self.standings.values())
-        # highest_score = max(self.standings, key=self.standings.get['score'])
-        # print(highest_score)
+        highest_player_score = {k:v['games_played'] for k,v in self.standings.items() if v['score'] == score_list[rank-1]}
+        print("The top score player =", highest_player_score)
+        soretd_game = sorted(highest_player_score, key=lambda x: highest_player_score[x], reverse=False)        # Still bug
+        print("sort game play =", soretd_game)
+        
+        print("First player =", soretd_game[0])
 
-        # highestScorePlayer = filter(lambda item: item[1]['score'] == sortedHigestScores[rank - 1], self.standings.items())
-        # for key, value in highestScorePlayer:
-        #     print(key, value)
-
-
-
-        return None
-
+        # if len(highest_player_score) >= 2:
+        #     pass
+        # return highest_player_score[0]
 
 if __name__ == "__main__":
     table = LeagueTable(['Mike', 'Chris', 'Arnold'])
     table.record_result('Mike', 2)
     table.record_result('Mike', 1)
     table.record_result('Arnold', 5)
-    table.record_result('Chris', 5)
+    table.record_result('Chris', 2)
+    table.record_result('Chris', 3)
     print(table.player_rank(1))
