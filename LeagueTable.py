@@ -15,7 +15,7 @@ class LeagueTable:
         
         # print("Current table scores =", self.standings)        
         # Sort table by score
-        table_list = sorted([(k,v['score'],v['games_played']) for k,v in self.standings.items()], key=lambda s:s[1], reverse=True)
+        table_list = sorted([(i,k,v['score'],v['games_played']) for i, (k,v) in enumerate(self.standings.items(),start=1)], key=lambda s:s[1], reverse=True)
         print("table_list = {0} and table_count = {1}".format(table_list, len(table_list)))
 
         target_score = table_list[rank-1][1]        
@@ -24,12 +24,12 @@ class LeagueTable:
         print("target_score = {0} and target_count = {1}".format(target_score, target_count))
 
         if target_count > 1:
-            target_player = [t for t in table_list if t[1] == target_score]
+            target_player = [t for t in table_list if t[2] == target_score]
             print("target_playert =", target_player)    
-            game_sorted = sorted(target_player, key=lambda s:s[2], reverse=False)
+            game_sorted = sorted(target_player, key=lambda s:s[3], reverse=False)
             print("game_sorted = {0} and game_sorted_count = {1}".format(game_sorted, len(game_sorted)))   
-            print("Player rank {0} = {1}".format(rank, game_sorted[0][0]))   
-            return game_sorted[0][0]
+            print("Player rank {0} = {1}".format(rank, game_sorted[0][1]))   
+            return game_sorted[0][1]
 
         # print("player_list = {0} and player_count = {1}".format(player_list, len(player_list)))
 
@@ -42,7 +42,7 @@ class LeagueTable:
         # soretd_player = sorted(highest_player_score, key=lambda x: highest_player_score[x], reverse=False)
         # print("sorted player =", soretd_player)
         print("Player rank {0} = {1}".format(rank, table_list[rank-1][0]))
-        return table_list[rank-1][0]
+        return table_list[rank-1][1]
 
 if __name__ == "__main__":
     table = LeagueTable(['Mike', 'Chris', 'Arnold'])
